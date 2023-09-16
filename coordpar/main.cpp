@@ -19,7 +19,6 @@ void run_test(string type, int n, int p, int s, int k,
   // Solve under each strategy
   for (const string& strategy : strategies) {
     for (const double ratio : partition_ratios) {
-      // low_mem = (ratio >= 0.49);
       CoordinatePartitionSolver cps(dp, strategy, ratio, low_mem);
       cps.set_timelimit(timelimits);
       cps.solve();
@@ -45,7 +44,7 @@ void random_box_test(const vector<int> timelimits,
   const vector<int> S = {20, 15, 10, 5, 2};
   const int K = 5;
   // Output
-  const string filename = "results/random_box.txt";
+  const string filename = "data/res/random_box.txt";
 
   // Create a vector to store our futures objects
   Semaphore sem(K * 2);
@@ -78,10 +77,10 @@ void random_box_test_large(const vector<int> timelimits,
   const vector<int> S = {20, 15, 10, 5, 2};
   const int K = 5;
   // Output
-  const string filename = "results/random_box_large.txt";
+  const string filename = "data/res/random_box_large.txt";
 
   // Create a vector to store our futures objects
-  Semaphore sem(K * 2);
+  Semaphore sem(8);
   vector<std::future<void>> futures;
   for (int n : N) {
     for (double p_ratio : P_ratio) {
@@ -106,12 +105,12 @@ void random_circle_test(const vector<int> timelimits,
                         const vector<string>& strategies,
                         const vector<double>& partition_ratios) {
   // Problem settings
-  const vector<int> N = {250, 100, 50};
+  const vector<int> N = {100, 50};
   const vector<double> P_ratio = {0.1, 0.2};
-  const vector<int> S = {10, 5, 2};
+  const vector<int> S = {5, 2};
   const int K = 5;
   // Output
-  const string filename = "results/random_circle.txt";
+  const string filename = "data/res/random_circle.txt";
 
   // Create a vector to store our futures objects
   Semaphore sem(K * 2);
@@ -140,7 +139,7 @@ int main() {
   const vector<int> timelimits = {30, 60, 120, 300, 600};
   const vector<string> strategies = {"random", "stratified", "greedy",
                                      "stepped"};
-  const vector<double> partition_ratios = {0.75, 0.5, 0.25, 0.1, 0.05, 0.01};
+  const vector<double> partition_ratios = {0.75, 0.5, 0.25, 0.1};
 
   random_box_test(timelimits, strategies, partition_ratios);
   random_box_test_large(timelimits, strategies, partition_ratios);
