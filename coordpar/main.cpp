@@ -44,7 +44,7 @@ void random_box_test(const vector<int> timelimits,
   const vector<int> S = {20, 15, 10, 5, 2};
   const int K = 5;
   // Output
-  const string filename = "data/res/random_box.txt";
+  const string filename = "res/random_box.txt";
 
   // Create a vector to store our futures objects
   Semaphore sem(K * 2);
@@ -77,7 +77,7 @@ void random_box_test_large(const vector<int> timelimits,
   const vector<int> S = {20, 15, 10, 5, 2};
   const int K = 5;
   // Output
-  const string filename = "data/res/random_box_large.txt";
+  const string filename = "res/random_box_large.txt";
 
   // Create a vector to store our futures objects
   Semaphore sem(8);
@@ -110,7 +110,7 @@ void random_circle_test(const vector<int> timelimits,
   const vector<int> S = {5, 2};
   const int K = 5;
   // Output
-  const string filename = "data/res/random_circle.txt";
+  const string filename = "res/random_circle.txt";
 
   // Create a vector to store our futures objects
   Semaphore sem(K * 2);
