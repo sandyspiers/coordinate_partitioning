@@ -17,8 +17,9 @@ GloverSolver::GloverSolver(const DiversityProblem& problem) : Solver(problem) {
     problem.build_edm(edm);
 
     // Create model
-    x = IloBoolVarArray(env, problem.get_num_coords());
-    w = IloNumVarArray(env, problem.get_num_coords() - 1, 0.0, IloInfinity);
+    model = IloModel(env);
+    x = IloBoolVarArray(env, problem.get_num_nodes());
+    w = IloNumVarArray(env, problem.get_num_nodes() - 1, 0.0, IloInfinity);
 
     // Choose m
     model.add(IloSum(x) == problem.get_cardinality());
