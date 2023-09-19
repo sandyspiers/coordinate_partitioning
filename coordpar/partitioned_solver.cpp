@@ -142,7 +142,7 @@ void CoordinatePartitionSolver::solve() {
     IloNum solve_time;
     if (timelimits.size() > 0) {
       cplex.use(
-          IntermediateResults(env, solve_time, timelimits, results, this));
+          IntermediateResults(env, solve_time, timelimits, results, *this));
     }
     solve_time = cplex.getCplexTime();
     cplex.solve();

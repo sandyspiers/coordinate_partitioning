@@ -61,9 +61,9 @@ void IntermediateResultsI::main() {
   if (getCplexTime() - start_time > timelimits.front() &&
       timelimits.size() > 0) {
     // We have hit the next time limit
-    Result res = solver->get_result(timelimits.front(), getIncumbentObjValue(),
-                                    getBestObjValue(), getMIPRelativeGap(),
-                                    getCplexTime() - start_time);
+    Result res = solver.get_result(timelimits.front(), getIncumbentObjValue(),
+                                   getBestObjValue(), getMIPRelativeGap(),
+                                   getCplexTime() - start_time);
     results.push_back(res);
     timelimits.erase(timelimits.begin());
     std::cout << "result... " << res.get_string() << std::endl;
@@ -77,7 +77,7 @@ void IntermediateResultsI::main() {
 IloCplex::Callback IntermediateResults(IloEnv env, IloNum& start_time,
                                        vector<int>& timelimits,
                                        vector<Result>& results,
-                                       Solver* solver) {
+                                       Solver& solver) {
   return (IloCplex::Callback(new (env) IntermediateResultsI(
       env, start_time, timelimits, results, solver)));
 }

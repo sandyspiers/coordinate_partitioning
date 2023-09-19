@@ -66,7 +66,7 @@ class Result {
 
 class IntermediateResultsI : public IloCplex::MIPInfoCallbackI {
   // Per result
-  Solver* solver;
+  Solver& solver;
   IloNum& start_time;
   // Tracking
   vector<int>& timelimits;
@@ -77,7 +77,7 @@ class IntermediateResultsI : public IloCplex::MIPInfoCallbackI {
     return (new (getEnv()) IntermediateResultsI(*this));
   }
   IntermediateResultsI(IloEnv env, IloNum& start_time, vector<int>& timelimits,
-                       vector<Result>& results, Solver* solver)
+                       vector<Result>& results, Solver& solver)
       : IloCplex::MIPInfoCallbackI(env),
         start_time(start_time),
         timelimits(timelimits),
@@ -87,6 +87,6 @@ class IntermediateResultsI : public IloCplex::MIPInfoCallbackI {
 };
 IloCplex::Callback IntermediateResults(IloEnv env, IloNum& start_time,
                                        vector<int>& timelimits,
-                                       vector<Result>& results, Solver* solver);
+                                       vector<Result>& results, Solver& solver);
 
 #endif
