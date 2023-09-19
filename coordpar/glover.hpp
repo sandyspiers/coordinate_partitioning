@@ -1,5 +1,5 @@
-#ifndef CUT_PLANE_H
-#define CUT_PLANE_H
+#ifndef GLOVER_H
+#define GLOVER_H
 
 #include <ilcplex/ilocplex.h>
 
