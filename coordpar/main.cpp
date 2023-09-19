@@ -44,7 +44,7 @@ void run_test(string type, int n, int p, int s, int k,
   sem->notify();
 }
 
-void run_parallel_test(int threads, const vector<int>& N,
+void run_parallel_test(int threads, const string type, const vector<int>& N,
                        const vector<double>& P_ratio, const vector<int>& S,
                        const int K, const vector<int>& timelimits,
                        const vector<string>& strategies,
@@ -60,7 +60,7 @@ void run_parallel_test(int threads, const vector<int>& N,
         for (int k = 0; k < K; k++) {
           sem.wait();
           futures.push_back(std::async(
-              std::launch::async, run_test, "random", n, p, s, k, timelimits,
+              std::launch::async, run_test, type, n, p, s, k, timelimits,
               strategies, partition_ratios, filename, &sem, glover));
         }
       }
@@ -87,7 +87,7 @@ void random_box_test_small() {
   // Output
   const string filename = "res/random_box_small.txt";
   // Run parallel, using 10 cores (confirmed to be safe)
-  run_parallel_test(10, N, P_ratio, S, K, timelimits, strategies,
+  run_parallel_test(10, "random", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, glover);
 }
 
@@ -106,7 +106,7 @@ void random_box_test_large() {
   // Output
   const string filename = "res/random_box_large.txt";
   // Run parallel, using 8 cores (confirmed to be safe)
-  run_parallel_test(8, N, P_ratio, S, K, timelimits, strategies,
+  run_parallel_test(8, "random", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, glover);
 }
 
@@ -124,7 +124,7 @@ void random_circle_test() {
   // Output
   const string filename = "res/random_circle.txt";
   // Run parallel, using all cores (instance sizes are small)
-  run_parallel_test(16, N, P_ratio, S, K, timelimits, strategies,
+  run_parallel_test(16, "circle", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, glover);
 }
 
