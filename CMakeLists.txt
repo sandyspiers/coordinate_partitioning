@@ -33,5 +33,6 @@ coordpar/diversity_problem.cpp
 coordpar/cut_plane.cpp
 coordpar/partitioned_instance.cpp
 coordpar/partitioned_solver.cpp
+coordpar/glover.cpp
 )
 target_link_libraries(coordpar ilocplex concert cplex m pthread)
