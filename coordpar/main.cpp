@@ -86,8 +86,8 @@ void random_box_test_small() {
   const int K = 5;
   // Output
   const string filename = "res/random_box_small.txt";
-  // Run parallel, using all cores
-  run_parallel_test(16, N, P_ratio, S, K, timelimits, strategies,
+  // Run parallel, using 10 cores (confirmed to be safe)
+  run_parallel_test(10, N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, glover);
 }
 
@@ -105,7 +105,7 @@ void random_box_test_large() {
   const int K = 5;
   // Output
   const string filename = "res/random_box_large.txt";
-  // Run parallel, using half cores
+  // Run parallel, using 8 cores (confirmed to be safe)
   run_parallel_test(8, N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, glover);
 }
@@ -123,7 +123,7 @@ void random_circle_test() {
   const int K = 5;
   // Output
   const string filename = "res/random_circle.txt";
-  // Run parallel, using all cores
+  // Run parallel, using all cores (instance sizes are small)
   run_parallel_test(16, N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, glover);
 }
