@@ -123,7 +123,7 @@ void random_circle_test() {
   const int K = 5;
   // Output
   const string filename = "res/random_circle.txt";
-  // Run parallel, using all cores (instance sizes are small)
+  // Run parallel, using 10 cores (Confirmed to be safe)
   run_parallel_test(10, "circle", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, glover);
 }
