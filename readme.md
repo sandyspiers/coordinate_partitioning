@@ -1,8 +1,5 @@
 # Coordinate Partitioning for Difficult Euclidean Max-Sum Diversity Problems
 
-> [!CAUTION]
-> This repo has been archived in favour of a newer [Julia version of this algorithm](https://github.com/sandyspiers/CoordinatePartitioning.jl).
-
 This repo contains a new exact method to solve difficult and high-coordinate Euclidean max-sum diversity problems.
 It is associated with [1], and comes as a result of our work in [2].
 
