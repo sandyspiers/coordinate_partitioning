@@ -26,13 +26,13 @@ link_directories(${CONCERT_LIB_DIR})
 add_compile_options(-O3)
 
 # Main solver
-add_executable(coordpar 
-coordpar/main.cpp 
-coordpar/result.cpp
-coordpar/diversity_problem.cpp 
-coordpar/cut_plane.cpp
-coordpar/partitioned_instance.cpp
-coordpar/partitioned_solver.cpp
-coordpar/glover.cpp
+add_executable(coordinate_partitioning 
+    src/main.cpp 
+    src/result.cpp
+    src/diversity_problem.cpp 
+    src/cut_plane.cpp
+    src/partitioned_instance.cpp
+    src/partitioned_solver.cpp
+    src/glover.cpp
 )
-target_link_libraries(coordpar ilocplex concert cplex m pthread)
+target_link_libraries(coordinate_partitioning ilocplex concert cplex m pthread)

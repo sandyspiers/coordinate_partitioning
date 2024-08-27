@@ -85,7 +85,7 @@ void random_box_test_small() {
   const vector<int> S = {20, 15, 10, 5, 2};
   const int K = 5;
   // Output
-  const string filename = "res/random_box_small.txt";
+  const string filename = "data/random_box_small.txt";
   // Run parallel, using 10 cores (confirmed to be safe)
   run_parallel_test(10, "random", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, glover);
@@ -104,7 +104,7 @@ void random_box_test_large() {
   const vector<int> S = {20, 15, 10, 5, 2};
   const int K = 5;
   // Output
-  const string filename = "res/random_box_large.txt";
+  const string filename = "data/random_box_large.txt";
   // Run parallel, using 8 cores (confirmed to be safe)
   run_parallel_test(8, "random", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, glover);
@@ -122,7 +122,7 @@ void random_circle_test() {
   const vector<int> S = {5, 2};
   const int K = 5;
   // Output
-  const string filename = "res/random_circle.txt";
+  const string filename = "data/random_circle.txt";
   // Run parallel, using 10 cores (Confirmed to be safe)
   run_parallel_test(10, "circle", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, glover);

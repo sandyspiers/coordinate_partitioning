@@ -22,7 +22,7 @@ make .
 Then to run the experiments in the background, run
 
 ```bash
-nohup ./build/coordpar &
+nohup ./build/coordinate_partitioning &
 ```
 
 ## Contents
