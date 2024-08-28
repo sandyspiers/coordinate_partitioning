@@ -134,6 +134,7 @@ void CoordinatePartitionSolver::solve() {
     cplex.setParam(IloCplex::Param::Threads, 1);
     cplex.setParam(IloCplex::Param::ClockType, 2);
     cplex.setParam(IloCplex::Param::MIP::Tolerances::MIPGap, 1e-9);
+    cplex.setParam(IloCplex::Param::MIP::Strategy::File, 1);
     cplex.setOut(env.getNullStream());
     cplex.setWarning(env.getNullStream());
     // cplex.setError(env.getNullStream());
