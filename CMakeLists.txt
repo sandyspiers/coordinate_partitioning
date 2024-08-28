@@ -3,11 +3,14 @@ project(cordpar VERSION 0.1.0 LANGUAGES C CXX)
 
 project(coordinate_partition)
 
+# Include dir
+set(INCLUDE_DIR "/usr/include/")
+
 # Eigen directories
-set(EIGEN_INCLUDE_DIR "/home/ubuntu/lib/eigen-3.4.0")
+set(EIGEN_INCLUDE_DIR "${INCLUDE_DIR}/eigen3")
 
 # CPLEX directories
-set(CPLEX_ROOT_DIR "/home/ubuntu/opt/ibm/ILOG/CPLEX_Studio2211")
+set(CPLEX_ROOT_DIR "/opt/ibm/ILOG/CPLEX_Studio2211")
 set(CPLEX_INCLUDE_DIR "${CPLEX_ROOT_DIR}/cplex/include")
 set(CPLEX_LIB_DIR "${CPLEX_ROOT_DIR}/cplex/lib/x86-64_linux/static_pic")
 set(CONCERT_INCLUDE_DIR "${CPLEX_ROOT_DIR}/concert/include")
