@@ -32,6 +32,12 @@ void run_test(string type, int n, int p, int s, int k,
   ct.solve();
   ct.write_results(filename);
 
+  // Solve fully partitioned
+  CoordinatePartitionSolver cps_full(dp, "all", 1.0, low_mem);
+  cps_full.set_timelimit(timelimits);
+  cps_full.solve();
+  cps_full.write_results(filename);
+
   // Solve on glover
   if (glover) {
     GloverSolver gv(dp);
