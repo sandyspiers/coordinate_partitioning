@@ -82,9 +82,9 @@ void run_parallel_test(int threads, const string type, const vector<int>& N,
   }
 }
 
-void random_box_test_small() {
+void cube_test() {
   // Solver settings
-  const vector<int> timelimits = {30, 60, 120, 300, 600};
+  const vector<int> timelimits = {30, 60, 120, 300, 600, 1000};
   const vector<string> strategies = {"random", "stratified", "greedy",
                                      "stepped"};
   const vector<double> partition_ratios = {0.75, 0.5, 0.25, 0.1};
@@ -92,61 +92,39 @@ void random_box_test_small() {
   const bool all = true;
   const bool glover = false;
   // Problem settings
-  const vector<int> N = {500, 250, 100};
+  const vector<int> N = {2000, 1500, 1000, 500, 250, 100};
   const vector<double> P_ratio = {0.1, 0.2};
   const vector<int> S = {20, 15, 10, 5, 2};
   const int K = 5;
   // Output
-  const string filename = "data/random_box_small.txt";
-  // Run parallel, using 10 cores (confirmed to be safe)
-  run_parallel_test(10, "random", N, P_ratio, S, K, timelimits, strategies,
+  const string filename = "data/cube.txt";
+  // Run parallel
+  run_parallel_test(16, "random", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, ct, all, glover);
 }
 
-void random_box_test_large() {
+void ball_test() {
   // Solver settings
-  const vector<int> timelimits = {30, 60, 120, 300, 600};
-  const vector<string> strategies = {"random", "stratified", "greedy",
-                                     "stepped"};
-  const vector<double> partition_ratios = {0.75, 0.5, 0.25, 0.1};
-  const bool ct = true;
-  const bool all = true;
-  const bool glover = false;
-  // Problem settings
-  const vector<int> N = {1000};
-  const vector<double> P_ratio = {0.1, 0.2};
-  const vector<int> S = {20, 15, 10, 5, 2};
-  const int K = 5;
-  // Output
-  const string filename = "data/random_box_large.txt";
-  // Run parallel, using 8 cores (confirmed to be safe)
-  run_parallel_test(8, "random", N, P_ratio, S, K, timelimits, strategies,
-                    partition_ratios, filename, ct, all, glover);
-}
-
-void random_circle_test() {
-  // Solver settings
-  const vector<int> timelimits = {30, 60, 120, 300, 600};
+  const vector<int> timelimits = {30, 60, 120, 300, 600, 1000};
   const vector<string> strategies = {"random", "stratified"};
   const vector<double> partition_ratios = {0.75, 0.5, 0.25};
   const bool ct = true;
   const bool all = true;
   const bool glover = true;
   // Problem settings
-  const vector<int> N = {100, 50};
+  const vector<int> N = {100, 50, 25, 10};
   const vector<double> P_ratio = {0.1, 0.2};
   const vector<int> S = {5, 2};
   const int K = 5;
   // Output
-  const string filename = "data/random_circle.txt";
-  // Run parallel, using 10 cores (Confirmed to be safe)
-  run_parallel_test(10, "circle", N, P_ratio, S, K, timelimits, strategies,
+  const string filename = "data/ball.txt";
+  // Run parallel
+  run_parallel_test(16, "circle", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, ct, all, glover);
 }
 
 int main() {
-  random_box_test_small();
-  random_box_test_large();
-  random_circle_test();
+  cube_test();
+  ball_test();
   return 0;
 }
