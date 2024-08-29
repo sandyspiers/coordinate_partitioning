@@ -97,7 +97,7 @@ void cube_test() {
   const vector<int> S = {20, 15, 10, 5, 2};
   const int K = 5;
   // Output
-  const string filename = "data/cube.txt";
+  const string filename = "data/cube.csv";
   // Run parallel
   run_parallel_test(16, "random", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, ct, all, glover);
@@ -117,7 +117,7 @@ void ball_test() {
   const vector<int> S = {5, 2};
   const int K = 5;
   // Output
-  const string filename = "data/ball.txt";
+  const string filename = "data/ball.csv";
   // Run parallel
   run_parallel_test(16, "circle", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, ct, all, glover);
