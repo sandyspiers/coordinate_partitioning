@@ -14,7 +14,7 @@ using std::vector;
 class DiversityProblem;
 
 class PartitionedInstance {
- private:
+private:
   // Parameters for locaiton gram-recovery
   const bool pre_normalize_grammian = true;
   const double eigenvalue_tolerance = 1e-6;
@@ -34,7 +34,7 @@ class PartitionedInstance {
   // Recover locations by gram recovery
   void recover_locations(VectorXd &evals, MatrixXd &evec);
 
- public:
+public:
   // Original diversity problem instance
   const DiversityProblem &dp;
   const string partition_strategy;
@@ -58,7 +58,8 @@ class PartitionedInstance {
   // Get total number coordinates
   int get_num_coords() const {
     int sum = 0;
-    for (size_t p = 0; p < get_num_partitions(); p++) sum += get_num_coords(p);
+    for (size_t p = 0; p < get_num_partitions(); p++)
+      sum += get_num_coords(p);
     return sum;
   };
   // Get number nodes

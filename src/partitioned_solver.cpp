@@ -7,9 +7,9 @@ using std::cout;
 using std::endl;
 
 // An optimised way of generating tangents of quadratic functions.
-void create_tangent(IloExpr& tangent, const IloBoolVarArray& x,
-                    const IloNumArray& y, const int par,
-                    const function<const double(int, int, int)>& get_dist) {
+void create_tangent(IloExpr &tangent, const IloBoolVarArray &x,
+                    const IloNumArray &y, const int par,
+                    const function<const double(int, int, int)> &get_dist) {
   // cut: -f(y) + <df(y),x>
   int n = y.getSize();
   for (int i = 0; i < n; i++) {
@@ -19,7 +19,8 @@ void create_tangent(IloExpr& tangent, const IloBoolVarArray& x,
       }
       for (int j = i + 1; j < n; j++) {
         tangent += get_dist(par, i, j) * x[j];
-        if (y[j] >= 1 - 1e-12) tangent -= get_dist(par, i, j);
+        if (y[j] >= 1 - 1e-12)
+          tangent -= get_dist(par, i, j);
       }
     }
   }
@@ -27,8 +28,8 @@ void create_tangent(IloExpr& tangent, const IloBoolVarArray& x,
 
 ILOLAZYCONSTRAINTCALLBACK4(PartitionedTangentPlanes, IloBoolVarArray, x,
                            IloNumVarArray, theta,
-                           const function<const double(int, int, int)>&,
-                           get_dist, int&, num_cuts) {
+                           const function<const double(int, int, int)> &,
+                           get_dist, int &, num_cuts) {
   // Get environment
   IloEnv env = getEnv();
   // Get x solution
@@ -45,27 +46,25 @@ ILOLAZYCONSTRAINTCALLBACK4(PartitionedTangentPlanes, IloBoolVarArray, x,
   y.end();
 }
 
-CoordinatePartitionSolver::CoordinatePartitionSolver(const DiversityProblem& dp,
+CoordinatePartitionSolver::CoordinatePartitionSolver(const DiversityProblem &dp,
                                                      string strategy,
                                                      bool low_memory_cuts)
     : Solver(dp), pi(dp, strategy), low_memory_cuts(low_memory_cuts) {
   setup_model();
 };
-CoordinatePartitionSolver::CoordinatePartitionSolver(const DiversityProblem& dp,
+CoordinatePartitionSolver::CoordinatePartitionSolver(const DiversityProblem &dp,
                                                      string strategy,
                                                      int num_partitions,
                                                      bool low_memory_cuts)
-    : Solver(dp),
-      pi(dp, strategy, num_partitions),
+    : Solver(dp), pi(dp, strategy, num_partitions),
       low_memory_cuts(low_memory_cuts) {
   setup_model();
 };
-CoordinatePartitionSolver::CoordinatePartitionSolver(const DiversityProblem& dp,
+CoordinatePartitionSolver::CoordinatePartitionSolver(const DiversityProblem &dp,
                                                      string strategy,
                                                      double partition_ratio,
                                                      bool low_memory_cuts)
-    : Solver(dp),
-      pi(dp, strategy, dp.get_num_nodes() * partition_ratio),
+    : Solver(dp), pi(dp, strategy, dp.get_num_nodes() * partition_ratio),
       low_memory_cuts(low_memory_cuts) {
   setup_model();
 };
@@ -92,8 +91,10 @@ void CoordinatePartitionSolver::setup_model() {
     } else {
       pi.build_partitioned_lower_edm(edm);
       get_dist = [this](int p, int i, int j) -> double {
-        if (i > j) return this->edm[p][i][j];
-        if (i < j) return this->edm[p][j][i];
+        if (i > j)
+          return this->edm[p][i][j];
+        if (i < j)
+          return this->edm[p][j][i];
         return 0.0;
       };
     }
@@ -110,7 +111,7 @@ void CoordinatePartitionSolver::setup_model() {
     }
     y.end();
 
-  } catch (IloException& ex) {
+  } catch (IloException &ex) {
     cerr << "Error: " << ex << endl;
   } catch (...) {
     cerr << "Error" << endl;
@@ -155,7 +156,7 @@ void CoordinatePartitionSolver::solve() {
       timelimits.erase(timelimits.begin());
     }
 
-  } catch (IloException& ex) {
+  } catch (IloException &ex) {
     cerr << "Error: " << ex << endl;
   } catch (...) {
     cerr << "Error" << endl;

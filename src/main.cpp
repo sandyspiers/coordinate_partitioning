@@ -11,14 +11,14 @@
 using std::vector;
 
 void run_test(string type, int n, int p, int s, int k,
-              const vector<int> timelimits, const vector<string>& strategies,
-              const vector<double>& partition_ratios, const string& filename,
-              Semaphore* sem, bool ct, bool all, bool glover) {
+              const vector<int> timelimits, const vector<string> &strategies,
+              const vector<double> &partition_ratios, const string &filename,
+              Semaphore *sem, bool ct, bool all, bool glover) {
   // Create a DiversityProblem instance with random locations
   const DiversityProblem dp(type, n, p, s, k);
   bool low_mem = false;
   // Solve under each strategy
-  for (const string& strategy : strategies) {
+  for (const string &strategy : strategies) {
     for (const double ratio : partition_ratios) {
       CoordinatePartitionSolver cps(dp, strategy, ratio, low_mem);
       cps.set_timelimit(timelimits);
@@ -54,11 +54,11 @@ void run_test(string type, int n, int p, int s, int k,
   sem->notify();
 }
 
-void run_parallel_test(int threads, const string type, const vector<int>& N,
-                       const vector<double>& P_ratio, const vector<int>& S,
-                       const int K, const vector<int>& timelimits,
-                       const vector<string>& strategies,
-                       const vector<double>& partition_ratios,
+void run_parallel_test(int threads, const string type, const vector<int> &N,
+                       const vector<double> &P_ratio, const vector<int> &S,
+                       const int K, const vector<int> &timelimits,
+                       const vector<string> &strategies,
+                       const vector<double> &partition_ratios,
                        const string filename, bool ct, bool all, bool glover) {
   // Create a vector to store our futures objects
   Semaphore sem(threads);
@@ -77,7 +77,7 @@ void run_parallel_test(int threads, const string type, const vector<int>& N,
     }
   }
   // Wait for all threads to complete
-  for (auto& future : futures) {
+  for (auto &future : futures) {
     future.wait();
   }
 }
@@ -146,6 +146,7 @@ void ball_test() {
 
 int main() {
   cube_test();
-  /*ball_test();*/
+  cube_test_big();
+  ball_test();
   return 0;
 }
