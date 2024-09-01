@@ -11,7 +11,7 @@ using std::cerr;
 using std::cout;
 using std::endl;
 
-PartitionedInstance::PartitionedInstance(const DiversityProblem& dp,
+PartitionedInstance::PartitionedInstance(const DiversityProblem &dp,
                                          string strategy)
     : dp(dp), partition_strategy(strategy) {
   if (strategy == "all") {
@@ -24,7 +24,7 @@ PartitionedInstance::PartitionedInstance(const DiversityProblem& dp,
   }
 }
 
-PartitionedInstance::PartitionedInstance(const DiversityProblem& dp,
+PartitionedInstance::PartitionedInstance(const DiversityProblem &dp,
                                          string strategy, int num_partitions)
     : dp(dp), partition_strategy(strategy) {
   setup(strategy, num_partitions);
@@ -41,8 +41,8 @@ void PartitionedInstance::setup(string strategy, int num_partitions) {
   recover_locations(evals, evecs);
 }
 
-void PartitionedInstance::get_recovery_evals_evecs(VectorXd& evals,
-                                                   MatrixXd& evecs) {
+void PartitionedInstance::get_recovery_evals_evecs(VectorXd &evals,
+                                                   MatrixXd &evecs) {
   // Generate Grammian
   int n = dp.get_num_nodes();
   MatrixXd gram(n, n);
@@ -111,7 +111,7 @@ Possible strategies:
  */
 void PartitionedInstance::generate_partition_set(string strategy,
                                                  int num_partitions,
-                                                 Eigen::VectorXd& evals) {
+                                                 Eigen::VectorXd &evals) {
   /* Generate partition set, based on given strategy and desired number of
    * partitions */
   int num_coords = evals.size();
@@ -132,7 +132,8 @@ void PartitionedInstance::generate_partition_set(string strategy,
   } else if (strategy == "random") {
     // Random partitions
     vector<int> remaining_coordinates;
-    for (size_t i = 0; i < num_coords; i++) remaining_coordinates.push_back(i);
+    for (size_t i = 0; i < num_coords; i++)
+      remaining_coordinates.push_back(i);
 
     // Shuffle the vector to randomize it
     std::random_device rd;
@@ -164,7 +165,8 @@ void PartitionedInstance::generate_partition_set(string strategy,
       partitions[p].push_back(c);
       c++;
       p++;
-      if (p == partitions.size()) p = 0;
+      if (p == partitions.size())
+        p = 0;
     }
   } else if (strategy == "greedy") {
     // Just adds them in the given order into partitions of similar sizes
@@ -208,7 +210,8 @@ void PartitionedInstance::generate_partition_set(string strategy,
   // Check partitions
   vector<int> flatten_partitions;
   for (size_t i = 0; i < partitions.size(); i++) {
-    for (int p : partitions[i]) flatten_partitions.push_back(p);
+    for (int p : partitions[i])
+      flatten_partitions.push_back(p);
   }
 
   for (size_t i = 0; i < num_coords; i++) {
@@ -231,7 +234,7 @@ void PartitionedInstance::generate_partition_set(string strategy,
   }
 }
 
-void PartitionedInstance::recover_locations(VectorXd& evals, MatrixXd& evecs) {
+void PartitionedInstance::recover_locations(VectorXd &evals, MatrixXd &evecs) {
   // Recover locations
   locations.resize(evecs.rows());
   for (int i = 0; i < evecs.rows(); i++) {
@@ -251,7 +254,7 @@ double PartitionedInstance::dist(int par, int i, int j) const {
 
 // Builds partitioned edm[partition][i][j]
 void PartitionedInstance::build_partitioned_edm(
-    vector<vector<vector<double>>>& edm) const {
+    vector<vector<vector<double>>> &edm) const {
   edm.resize(get_num_partitions());
   for (size_t p = 0; p < get_num_partitions(); p++) {
     edm[p].resize(get_num_nodes());
@@ -282,7 +285,7 @@ therefore edm[p][i][j] is only defined when i > j.
 If i < j, call edm[p][j][i].
 */
 void PartitionedInstance::build_partitioned_lower_edm(
-    vector<vector<vector<double>>>& edm) const {
+    vector<vector<vector<double>>> &edm) const {
   edm.resize(get_num_partitions());
   for (int p = 0; p < get_num_partitions(); p++) {
     edm[p].resize(get_num_nodes());

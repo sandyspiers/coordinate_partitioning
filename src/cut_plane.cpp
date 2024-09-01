@@ -11,9 +11,9 @@ using std::cout;
 using std::endl;
 
 // An optimised way of generating tangents of quadratic functions.
-void create_tangent(IloExpr& tangent, const IloBoolVarArray& x,
-                    const IloNumArray& y,
-                    const function<const double(int, int)>& get_dist) {
+void create_tangent(IloExpr &tangent, const IloBoolVarArray &x,
+                    const IloNumArray &y,
+                    const function<const double(int, int)> &get_dist) {
   // cut: -f(y) + <df(y),x>
   for (int i = 0; i < y.getSize(); i++) {
     if (y[i] >= 1 - 1e-12) {
@@ -22,15 +22,16 @@ void create_tangent(IloExpr& tangent, const IloBoolVarArray& x,
       }
       for (int j = i + 1; j < y.getSize(); j++) {
         tangent += get_dist(i, j) * x[j];
-        if (y[j] >= 1 - 1e-12) tangent -= get_dist(i, j);
+        if (y[j] >= 1 - 1e-12)
+          tangent -= get_dist(i, j);
       }
     }
   }
 }
 
 ILOLAZYCONSTRAINTCALLBACK4(TangentPlanes, IloBoolVarArray, x, IloNumVar, theta,
-                           const function<const double(int, int)>&, get_dist,
-                           int&, num_cuts) {
+                           const function<const double(int, int)> &, get_dist,
+                           int &, num_cuts) {
   // Get environment
   IloEnv env = getEnv();
   // Get x solution
@@ -45,7 +46,7 @@ ILOLAZYCONSTRAINTCALLBACK4(TangentPlanes, IloBoolVarArray, x, IloNumVar, theta,
   y.end();
 }
 
-CutPlaneSolver::CutPlaneSolver(const DiversityProblem& problem,
+CutPlaneSolver::CutPlaneSolver(const DiversityProblem &problem,
                                const bool low_memory_cuts)
     : Solver(problem), low_memory_cuts(low_memory_cuts) {
   env = IloEnv();
@@ -67,8 +68,10 @@ CutPlaneSolver::CutPlaneSolver(const DiversityProblem& problem,
     } else {
       dp.build_lower_edm(edm);
       get_dist = [this](int i, int j) -> double {
-        if (i > j) return this->edm[i][j];
-        if (i < j) return this->edm[j][i];
+        if (i > j)
+          return this->edm[i][j];
+        if (i < j)
+          return this->edm[j][i];
         return 0.0;
       };
     }
@@ -83,7 +86,7 @@ CutPlaneSolver::CutPlaneSolver(const DiversityProblem& problem,
     model.add(theta <= cut);
     y.end();
 
-  } catch (IloException& ex) {
+  } catch (IloException &ex) {
     cerr << "Error: " << ex << endl;
   } catch (...) {
     cerr << "Error" << endl;
@@ -104,12 +107,12 @@ void CutPlaneSolver::solve() {
     cplex.use(TangentPlanes(env, x, theta, get_dist, num_cuts));
 
     // Parameters
-    cplex.setParam(IloCplex::Param::Threads, 1);
+    cplex.setParam(IloCplex::Param::Threads, 16);
     cplex.setParam(IloCplex::Param::ClockType, 2);
-    cplex.setParam(IloCplex::Param::MIP::Tolerances::MIPGap, 1e-9);
-    cplex.setParam(IloCplex::Param::MIP::Strategy::File, 1);
-    cplex.setOut(env.getNullStream());
-    cplex.setWarning(env.getNullStream());
+    cplex.setParam(IloCplex::Param::MIP::Tolerances::MIPGap, 1e-10);
+    // cplex.setParam(IloCplex::Param::MIP::Strategy::File, 1);
+    // cplex.setOut(env.getNullStream());
+    // cplex.setWarning(env.getNullStream());
     // cplex.setError(env.getNullStream());
 
     // Solve with timers
@@ -128,7 +131,7 @@ void CutPlaneSolver::solve() {
       timelimits.erase(timelimits.begin());
     }
 
-  } catch (IloException& ex) {
+  } catch (IloException &ex) {
     cerr << "Error: " << ex << endl;
   } catch (...) {
     cerr << "Error" << endl;

@@ -11,14 +11,14 @@
 using std::vector;
 
 void run_test(string type, int n, int p, int s, int k,
-              const vector<int> timelimits, const vector<string>& strategies,
-              const vector<double>& partition_ratios, const string& filename,
-              Semaphore* sem, bool ct, bool all, bool glover) {
+              const vector<int> timelimits, const vector<string> &strategies,
+              const vector<double> &partition_ratios, const string &filename,
+              Semaphore *sem, bool ct, bool all, bool glover) {
   // Create a DiversityProblem instance with random locations
   const DiversityProblem dp(type, n, p, s, k);
   bool low_mem = false;
   // Solve under each strategy
-  for (const string& strategy : strategies) {
+  for (const string &strategy : strategies) {
     for (const double ratio : partition_ratios) {
       CoordinatePartitionSolver cps(dp, strategy, ratio, low_mem);
       cps.set_timelimit(timelimits);
@@ -54,11 +54,11 @@ void run_test(string type, int n, int p, int s, int k,
   sem->notify();
 }
 
-void run_parallel_test(int threads, const string type, const vector<int>& N,
-                       const vector<double>& P_ratio, const vector<int>& S,
-                       const int K, const vector<int>& timelimits,
-                       const vector<string>& strategies,
-                       const vector<double>& partition_ratios,
+void run_parallel_test(int threads, const string type, const vector<int> &N,
+                       const vector<double> &P_ratio, const vector<int> &S,
+                       const int K, const vector<int> &timelimits,
+                       const vector<string> &strategies,
+                       const vector<double> &partition_ratios,
                        const string filename, bool ct, bool all, bool glover) {
   // Create a vector to store our futures objects
   Semaphore sem(threads);
@@ -77,76 +77,54 @@ void run_parallel_test(int threads, const string type, const vector<int>& N,
     }
   }
   // Wait for all threads to complete
-  for (auto& future : futures) {
+  for (auto &future : futures) {
     future.wait();
   }
 }
 
-void random_box_test_small() {
+void cube_test() {
   // Solver settings
-  const vector<int> timelimits = {30, 60, 120, 300, 600};
+  const vector<int> timelimits = {30, 60, 120, 300, 600, 1000};
   const vector<string> strategies = {"random", "stratified", "greedy",
                                      "stepped"};
-  const vector<double> partition_ratios = {0.75, 0.5, 0.25, 0.1};
+  const vector<double> partition_ratios = {0.5, 0.75, 0.5, 0.25, 0.1};
   const bool ct = true;
   const bool all = true;
   const bool glover = false;
   // Problem settings
-  const vector<int> N = {500, 250, 100};
+  const vector<int> N = {100, 250, 500, 1000};
   const vector<double> P_ratio = {0.1, 0.2};
-  const vector<int> S = {20, 15, 10, 5, 2};
+  const vector<int> S = {2, 5, 10, 15, 20};
   const int K = 5;
   // Output
-  const string filename = "data/random_box_small.txt";
-  // Run parallel, using 10 cores (confirmed to be safe)
-  run_parallel_test(10, "random", N, P_ratio, S, K, timelimits, strategies,
+  const string filename = "data/cube.csv";
+  // Run parallel
+  run_parallel_test(1, "random", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, ct, all, glover);
 }
 
-void random_box_test_large() {
+void ball_test() {
   // Solver settings
-  const vector<int> timelimits = {30, 60, 120, 300, 600};
-  const vector<string> strategies = {"random", "stratified", "greedy",
-                                     "stepped"};
-  const vector<double> partition_ratios = {0.75, 0.5, 0.25, 0.1};
-  const bool ct = true;
-  const bool all = true;
-  const bool glover = false;
-  // Problem settings
-  const vector<int> N = {1000};
-  const vector<double> P_ratio = {0.1, 0.2};
-  const vector<int> S = {20, 15, 10, 5, 2};
-  const int K = 5;
-  // Output
-  const string filename = "data/random_box_large.txt";
-  // Run parallel, using 8 cores (confirmed to be safe)
-  run_parallel_test(8, "random", N, P_ratio, S, K, timelimits, strategies,
-                    partition_ratios, filename, ct, all, glover);
-}
-
-void random_circle_test() {
-  // Solver settings
-  const vector<int> timelimits = {30, 60, 120, 300, 600};
+  const vector<int> timelimits = {30, 60, 120, 300, 600, 1000};
   const vector<string> strategies = {"random", "stratified"};
-  const vector<double> partition_ratios = {0.75, 0.5, 0.25};
+  const vector<double> partition_ratios = {0.25, 0.5, 0.75};
   const bool ct = true;
   const bool all = true;
   const bool glover = true;
   // Problem settings
-  const vector<int> N = {100, 50};
+  const vector<int> N = {10, 25, 50, 100};
   const vector<double> P_ratio = {0.1, 0.2};
   const vector<int> S = {5, 2};
   const int K = 5;
   // Output
-  const string filename = "data/random_circle.txt";
-  // Run parallel, using 10 cores (Confirmed to be safe)
-  run_parallel_test(10, "circle", N, P_ratio, S, K, timelimits, strategies,
+  const string filename = "data/ball.csv";
+  // Run parallel
+  run_parallel_test(1, "circle", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, ct, all, glover);
 }
 
 int main() {
-  random_box_test_small();
-  random_box_test_large();
-  random_circle_test();
+  cube_test();
+  ball_test();
   return 0;
 }

@@ -10,7 +10,7 @@
 using std::function;
 
 class CutPlaneSolver : public Solver {
- private:
+private:
   // Cplex stuff
   IloEnv env;
   IloModel model;
@@ -35,9 +35,9 @@ class CutPlaneSolver : public Solver {
   // Either recalls the edm, or generates explicitly
   function<const double(int, int)> get_dist;
 
- public:
+public:
   // Constructor and model builder
-  CutPlaneSolver(const DiversityProblem& problem, const bool low_memory_cuts);
+  CutPlaneSolver(const DiversityProblem &problem, const bool low_memory_cuts);
 
   // Solver settings
   const bool low_memory_cuts;
