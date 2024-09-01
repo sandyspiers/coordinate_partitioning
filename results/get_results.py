@@ -43,7 +43,9 @@ def read_df(filename):
         engine="python",
     )
     df.insert(8, "ratio", (df["partitions"] / df["n"]).round(2))
+    df.loc[df["strategy"] == "all", "ratio"] = 1.0
     df.loc[df["solver"] != "coordpar", "ratio"] = 0
+    df = df.sort_values(by=["solver", "strategy"])
 
     return df
 
