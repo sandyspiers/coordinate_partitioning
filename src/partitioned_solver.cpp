@@ -132,12 +132,12 @@ void CoordinatePartitionSolver::solve() {
     cplex.use(PartitionedTangentPlanes(env, x, theta, get_dist, num_cuts));
 
     // Parameters
-    cplex.setParam(IloCplex::Param::Threads, 16);
+    cplex.setParam(IloCplex::Param::Threads, 1);
     cplex.setParam(IloCplex::Param::ClockType, 2);
     cplex.setParam(IloCplex::Param::MIP::Tolerances::MIPGap, 1e-10);
-    // cplex.setParam(IloCplex::Param::MIP::Strategy::File, 1);
-    // cplex.setOut(env.getNullStream());
-    // cplex.setWarning(env.getNullStream());
+    cplex.setParam(IloCplex::Param::MIP::Strategy::File, 1);
+    cplex.setOut(env.getNullStream());
+    cplex.setWarning(env.getNullStream());
     // cplex.setError(env.getNullStream());
 
     // Solve with timers
