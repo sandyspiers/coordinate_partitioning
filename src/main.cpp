@@ -87,14 +87,14 @@ void cube_test() {
   const vector<int> timelimits = {30, 60, 120, 300, 600, 1000};
   const vector<string> strategies = {"random", "stratified", "greedy",
                                      "stepped"};
-  const vector<double> partition_ratios = {0.5, 0.75, 0.5, 0.25, 0.1};
+  const vector<double> partition_ratios = {0.75, 0.5, 0.25, 0.1};
   const bool ct = true;
   const bool all = true;
   const bool glover = false;
   // Problem settings
-  const vector<int> N = {100, 250, 500, 1000};
+  const vector<int> N = {1000};
   const vector<double> P_ratio = {0.1, 0.2};
-  const vector<int> S = {2, 5, 10, 15, 20};
+  const vector<int> S = {20};
   const int K = 5;
   // Output
   const string filename = "data/cube.csv";
@@ -125,6 +125,6 @@ void ball_test() {
 
 int main() {
   cube_test();
-  ball_test();
+  // ball_test();
   return 0;
 }
