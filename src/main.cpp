@@ -133,7 +133,7 @@ void ball_test() {
   const bool all = true;
   const bool glover = true;
   // Problem settings
-  const vector<int> N = {25, 50, 100};
+  const vector<int> N = {25, 50};
   const vector<double> P_ratio = {0.1, 0.2};
   const vector<int> S = {5, 2};
   const int K = 5;
@@ -144,9 +144,30 @@ void ball_test() {
                     partition_ratios, filename, ct, all, glover);
 }
 
+void ball_test_big() {
+  // Solver settings
+  const vector<int> timelimits = {30, 60, 120, 300, 600, 1000};
+  const vector<string> strategies = {"random", "stratified"};
+  const vector<double> partition_ratios = {0.25, 0.5, 0.75};
+  const bool ct = true;
+  const bool all = true;
+  const bool glover = true;
+  // Problem settings
+  const vector<int> N = {100};
+  const vector<double> P_ratio = {0.1, 0.2};
+  const vector<int> S = {5, 2};
+  const int K = 5;
+  // Output
+  const string filename = "data/ball_big.csv";
+  // Run parallel
+  run_parallel_test(8, "circle", N, P_ratio, S, K, timelimits, strategies,
+                    partition_ratios, filename, ct, all, glover);
+}
+
 int main() {
-  cube_test_big();
-  cube_test();
-  // ball_test();
+  // cube_test_big();
+  // cube_test();
+  ball_test();
+  ball_test_big();
   return 0;
 }
