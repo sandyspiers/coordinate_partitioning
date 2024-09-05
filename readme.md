@@ -25,10 +25,6 @@ Then to run the experiments in the background, run
 nohup ./build/coordinate_partitioning &
 ```
 
-## Contents
-
-The repo is currently a work in progress, more documentation to come soon.
-
 ## References
 
 [1] Spiers, S., Bui, H. T., & Loxton, R. (2023). Coordinate Partitioning for Difficult Euclidean Max-Sum Diversity Problems. *Manuscript under review*.
