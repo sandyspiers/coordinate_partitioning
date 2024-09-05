@@ -13,7 +13,7 @@ using std::function;
 class DiversityProblem;
 
 class CoordinatePartitionSolver : public Solver {
- private:
+private:
   // Cplex stuff
   IloEnv env;
   IloModel model;
@@ -38,7 +38,7 @@ class CoordinatePartitionSolver : public Solver {
 
   void setup_model();
 
- public:
+public:
   const PartitionedInstance pi;
   // Constructor
   CoordinatePartitionSolver(const DiversityProblem &dp, string strategy,

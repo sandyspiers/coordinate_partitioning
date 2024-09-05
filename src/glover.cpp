@@ -10,7 +10,7 @@ using std::cerr;
 using std::cout;
 using std::endl;
 
-GloverSolver::GloverSolver(const DiversityProblem& problem) : Solver(problem) {
+GloverSolver::GloverSolver(const DiversityProblem &problem) : Solver(problem) {
   env = IloEnv();
   try {
     // Construct distance matrix
@@ -42,7 +42,7 @@ GloverSolver::GloverSolver(const DiversityProblem& problem) : Solver(problem) {
     // Objective
     model.add(IloMaximize(env, IloSum(w)));
 
-  } catch (IloException& ex) {
+  } catch (IloException &ex) {
     cerr << "Error: " << ex << endl;
   } catch (...) {
     cerr << "Error" << endl;
@@ -62,7 +62,8 @@ void GloverSolver::solve() {
     // Parameters
     cplex.setParam(IloCplex::Param::Threads, 1);
     cplex.setParam(IloCplex::Param::ClockType, 2);
-    cplex.setParam(IloCplex::Param::MIP::Tolerances::MIPGap, 1e-9);
+    cplex.setParam(IloCplex::Param::MIP::Tolerances::MIPGap, 1e-10);
+    cplex.setParam(IloCplex::Param::MIP::Strategy::File, 1);
     cplex.setOut(env.getNullStream());
     cplex.setWarning(env.getNullStream());
     // cplex.setError(env.getNullStream());
@@ -83,7 +84,7 @@ void GloverSolver::solve() {
       timelimits.erase(timelimits.begin());
     }
 
-  } catch (IloException& ex) {
+  } catch (IloException &ex) {
     cerr << "Error: " << ex << endl;
   } catch (...) {
     cerr << "Error" << endl;

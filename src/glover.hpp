@@ -2,6 +2,7 @@
 #define GLOVER_H
 
 #include <ilcplex/ilocplex.h>
+#include <functional>
 
 #include "solver.hpp"
 
