@@ -165,8 +165,8 @@ void ball_test_big() {
 }
 
 int main() {
-  // cube_test_big();
-  // cube_test();
+  cube_test_big();
+  cube_test();
   ball_test();
   ball_test_big();
   return 0;
