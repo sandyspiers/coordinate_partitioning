@@ -140,7 +140,7 @@ void ball_test() {
   // Output
   const string filename = "data/ball.csv";
   // Run parallel
-  run_parallel_test(16, "circle", N, P_ratio, S, K, timelimits, strategies,
+  run_parallel_test(10, "circle", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, ct, all, glover);
 }
 
@@ -160,7 +160,7 @@ void ball_test_big() {
   // Output
   const string filename = "data/ball_big.csv";
   // Run parallel
-  run_parallel_test(8, "circle", N, P_ratio, S, K, timelimits, strategies,
+  run_parallel_test(6, "circle", N, P_ratio, S, K, timelimits, strategies,
                     partition_ratios, filename, ct, all, glover);
 }
 
