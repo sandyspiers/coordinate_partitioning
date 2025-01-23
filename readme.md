@@ -27,6 +27,6 @@ nohup ./build/coordinate_partitioning &
 
 ## References
 
-[1] Spiers, S., Bui, H. T., & Loxton, R. (2023). Coordinate Partitioning for Difficult Euclidean Max-Sum Diversity Problems. *Manuscript under review*.
+[1] [Spiers, S., Bui, H. T., & Loxton, R. (2023). Coordinate Partitioning for Difficult Euclidean Max-Sum Diversity Problems. *Operations Research*.](https://doi.org/10.1287/opre.2023.0612)
 
 [2] [Spiers, S., Bui, H. T., & Loxton, R. (2023). An exact cutting plane method for the Euclidean max-sum diversity problem. *European Journal of Operational Research*.](https://www.sciencedirect.com/science/article/pii/S037722172300379X).
